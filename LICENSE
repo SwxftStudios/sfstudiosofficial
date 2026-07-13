@@ -1,36 +1,48 @@
-Swxft Studios Ultimate Proprietary, Restricted & Limited-Hosting License
+SWXFT STUDIOS PROPRIETARY SOURCE CODE LICENSE AND TERMS OF SERVICE
 
+Version 1.0 — Effective Date: July 13, 2026
 Copyright (c) 2026 Swxft Studios. All rights reserved.
 
-This software, including all source code, assets, graphics, user interface designs, stylesheets, scripts, databases, and conceptual frameworks (collectively referred to as the "Software"), is the exclusive, strict proprietary property of Swxft Studios.
+IMPORTANT: PLEASE READ THIS ENTIRE AGREEMENT CAREFULLY. BY VIEWING, DOWNLOADING, CLONING, ACCESSING, OR UTILIZING THE SOURCE CODE, FILES, GRAPHICS, OR ASSETS CONTAINED IN THIS REPOSITORY (COLLECTIVELY, THE "SOFTWARE"), YOU UNCONDITIONALLY AGREE TO BE BOUND BY ALL TERMS, CONDITIONS, AND RESTRICTIONS SPECIFIED HEREIN. THIS DOCUMENT CONSTITUTES A LEGALLY BINDING AND ENFORCEABLE CONTRACT BETWEEN YOU (THE "LICENSEE") AND SWXFT STUDIOS (THE "LICENSOR").
 
-By viewing, downloading, cloning, or accessing this repository, you unconditionally agree to the following absolute restrictions. Any violation of these terms constitutes an immediate breach of copyright law and intellectual property theft.
+1. DEFINITIONS
+"Licensor" refers to Swxft Studios and its authorized operators.
+"Licensee" refers to any individual, entity, or automated system accessing the Software.
+"Software" encompasses all source code, stylesheets, scripts, custom assets, user interface layouts, text, graphics, and conceptual frameworks contained in this repository.
+"Mirror" refers to any live, publicly hosted deployment or reproduction of the Software, in whole or in part, on any server, cloud provider, or domain.
 
-1. PERMITTED USE (INSPECTION ONLY)
-You are granted a limited, non-exclusive, non-transferable permission solely to view, inspect, and read the source code of this Software for educational, review, or personal evaluation purposes. No other rights are granted.
+2. LIMITED LICENSE GRANT & INTENDED USE
+Subject to strict compliance with this Agreement, Licensor grants Licensee a limited, non-exclusive, non-transferable, revocable license solely to view, read, and inspect the Software's underlying source code for personal, educational, or evaluation purposes. No ownership, trademark, or commercial rights are transferred under this Agreement.
 
-2. TOTAL PROHIBITION ON MODIFICATIONS AND DERIVATIVE WORKS
-No file, line of code, character, style sheet, script, or asset contained within this Software may be changed, modified, altered, edited, patched, refactored, or rearranged in any manner. You are strictly prohibited from creating derivative works, forks, or adaptations based on this Software.
+3. COVENANT AGAINST MODIFICATIONS & DERIVATIVE WORKS
+Licensee covenants and agrees that they shall not alter, edit, modify, patch, refactored, rearrange, or create derivative works from any portion of the Software. The source code and visual presentation must remain identical to the original repository published by the Licensor.
 
-3. STRICT HOSTING AND DEPLOYMENT CONDITIONS (NON-OFFICIAL MANDATE)
-If you copy, mirror, or deploy this Software onto any public or private server, cloud hosting provider (including but not limited to Vercel, Netlify, Heroku, or AWS), or custom domain, you MUST strictly adhere to the following condition:
-- The deployed website must prominently, clearly, and visibly display a disclaimer at the very top of every page, in a legible font size, stating exactly: "THIS IS AN UNOFFICIAL, UNMODIFIED MIRROR OF THE SWXFT STUDIOS WEBSITE. THIS IS NOT THE OFFICIAL VERSION."
-- Failure to include this exact visible disclaimer immediately revokes your permission to host the code and constitutes copyright infringement.
+4. CONDITIONAL MIRRORING AND MANDATORY DISCLAIMER
+Licensor acknowledges that public hosting platforms permit technical cloning. However, hosting a public or private Mirror of this Software is strictly conditional upon the absolute fulfillment of the following contractual mandate:
+a. Every web page served by the Mirror must contain a hardcoded, un-hidden, visible banner container at the absolute top of the HTML body (`<body>`).
+b. The banner must display the exact, unaltered text string: "THIS IS AN UNOFFICIAL, UNMODIFIED MIRROR OF THE SWXFT STUDIOS WEBSITE. THIS IS NOT THE OFFICIAL VERSION."
+c. The text must be rendered in a highly legible font, using a minimum font size of 14px, and must contrast sharply with the background color of the banner to ensure immediate visibility to any visitor.
+d. Failure to implement this exact banner configuration automatically voids any implied permission to host the code, rendering the deployment an unauthorized distribution and an immediate breach of copyright law.
 
-4. TOTAL PROHIBITION ON MONETIZATION AND COMMERCIAL USE
-You are strictly prohibited from utilizing this Software, or any portion of its logic, design, or concepts, for any financial gain, revenue generation, commercial enterprise, or business activity. This includes, but is not limited to:
-- Selling, renting, leasing, or sublicensing the Software or its code.
-- Displaying advertisements, sponsored content, or paywalls on any platform using this code or any mirror of it.
-- Utilizing this Software to promote, support, or integrate with any commercial service or product.
+5. ABSOLUTE COMMERCIAL AND MONETIZATION PROHIBITION
+The Software may not be used for any commercial purposes or financial gain. Licensee shall not monetize the Software, or any Mirror thereof, through methods including, but not limited to: paid subscriptions, paywalls, embedded advertisements, sponsored content, programmatic ad units, affiliate networks, or commercial product promotions.
 
-5. PROHIBITION ON REVERSE ENGINEERING AND DECOMPILATION
-You may not reverse engineer, decompile, disassemble, or attempt to extract the underlying source code, algorithms, or backend architecture of this Software.
+6. PROHIBITION ON REVERSE ENGINEERING, SCRAPING, AND ARTIFICIAL INTELLIGENCE TRAINING
+Licensee is explicitly prohibited from:
+a. Decompiling, disassembling, or extracting backend operational routing logic from the Software.
+b. Utilizing automated web scrapers, data-mining tools, or harvesting bots to extract the Software's assets or code.
+c. Utilizing any portion of the Software's source code, text, or design language as input data to train, tune, validate, or test machine learning models, large language models (LLMs), or generative artificial intelligence engines.
 
-6. PROHIBITION ON AI TRAINING AND DATA SCRAPING
-You are strictly prohibited from using any text, code, logic, or assets from this repository to train, fine-tune, or test machine learning models, large language models (LLMs), or artificial intelligence systems. Automated scraping, data mining, or harvesting of this repository is entirely banned.
+7. ATTRIBUTION AND INTELLECTUAL PROPERTY PRESERVATION
+Licensee shall not remove, obscure, alter, or conceal any copyright notices, text headers, brand identifiers, logos, trademarks, or copies of this License file within the repository or any deployed Mirror.
 
-7. ABSOLUTE PRESERVATION OF COPYRIGHT AND BRANDING
-The removal, alteration, concealment, or obfuscation of any copyright notices, brand identifiers, logos, trademarks, text headers, author credits, or this license text is strictly prohibited under any and all circumstances. All attribution must remain completely visible exactly as originally written.
+8. GOVERNING LAW, JURISDICTION, AND DISPUTE RESOLUTION
+This Agreement shall be governed by, construed, and enforced in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict of laws principles. Any legal action, suit, or proceeding arising out of or relating to this Agreement or the Software shall be instituted exclusively in the courts located in the judicial district of York Region or Toronto, Ontario, Canada, and each party irrevocably submits to the exclusive jurisdiction of such courts.
 
-8. NO WARRANTY OR LIABILITY
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+9. SEVERABILITY
+If any provision of this Agreement is held by a court of competent jurisdiction to be invalid, illegal, or unenforceable, the remaining provisions of this Agreement shall remain in full force and effect, and the invalid provision shall be substituted with an enforceable provision that most closely reflects the original intent of the Licensor.
+
+10. REMEDIES FOR BREACH
+Licensee acknowledges that a breach of this Agreement causes irreparable harm to Licensor for which monetary damages alone would be inadequate. Licensor reserves the right to seek immediate injunctive relief, specific performance, and statutory copyright damages. Licensor will aggressively enforce its rights via Digital Millennium Copyright Act (DMCA) takedown demands to hosting providers, registrars, and search engines for any non-compliant deployments.
+
+BY PROCEEDING TO USE, CLONE, OR VIEW THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE CONTRACTUALLY BOUND BY IT.
