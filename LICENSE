@@ -1,21 +1,36 @@
-Swxft Studios Strict Proprietary License
+Swxft Studios Ultimate Proprietary, Restricted & Limited-Hosting License
 
 Copyright (c) 2026 Swxft Studios. All rights reserved.
 
-This software and all associated files, designs, and assets (the "Software") are the sole proprietary property of Swxft Studios. 
+This software, including all source code, assets, graphics, user interface designs, stylesheets, scripts, databases, and conceptual frameworks (collectively referred to as the "Software"), is the exclusive, strict proprietary property of Swxft Studios.
 
-By accessing, viewing, or downloading the source code, you agree to the following absolute restrictions:
+By viewing, downloading, cloning, or accessing this repository, you unconditionally agree to the following absolute restrictions. Any violation of these terms constitutes an immediate breach of copyright law and intellectual property theft.
 
-1. ABSOLUTE PROHIBITION ON MODIFICATIONS:
-No code, text, styling, asset, or file contained within this repository may be changed, modified, altered, edited, or rearranged in any way, shape, or form. The Software must remain exactly as originally published by the copyright holder.
+1. PERMITTED USE (INSPECTION ONLY)
+You are granted a limited, non-exclusive, non-transferable permission solely to view, inspect, and read the source code of this Software for educational, review, or personal evaluation purposes. No other rights are granted.
 
-2. ABSOLUTE PROHIBITION ON MONETIZATION:
-You are strictly prohibited from generating revenue, income, or any form of commercial/financial gain from this Software, its code, its logic, its design, or its concepts. This includes, but is not limited to, charging for access, embedding advertisements, utilizing it for commercial services, or using it to promote paid products.
+2. TOTAL PROHIBITION ON MODIFICATIONS AND DERIVATIVE WORKS
+No file, line of code, character, style sheet, script, or asset contained within this Software may be changed, modified, altered, edited, patched, refactored, or rearranged in any manner. You are strictly prohibited from creating derivative works, forks, or adaptations based on this Software.
 
-3. RESTRICTION ON DISTRIBUTION AND DEPLOYMENT:
-You may not copy, redistribute, republish, host, mirror, or deploy this Software under any domain, platform, or server without explicit, written, prior permission from Swxft Studios.
+3. STRICT HOSTING AND DEPLOYMENT CONDITIONS (NON-OFFICIAL MANDATE)
+If you copy, mirror, or deploy this Software onto any public or private server, cloud hosting provider (including but not limited to Vercel, Netlify, Heroku, or AWS), or custom domain, you MUST strictly adhere to the following condition:
+- The deployed website must prominently, clearly, and visibly display a disclaimer at the very top of every page, in a legible font size, stating exactly: "THIS IS AN UNOFFICIAL, UNMODIFIED MIRROR OF THE SWXFT STUDIOS WEBSITE. THIS IS NOT THE OFFICIAL VERSION."
+- Failure to include this exact visible disclaimer immediately revokes your permission to host the code and constitutes copyright infringement.
 
-4. PRESERVATION OF COPYRIGHT AND BRANDING:
-The removal, alteration, or concealment of any copyright notices, author credits, brand identifiers, trademarks, or this license text is strictly prohibited under any circumstances.
+4. TOTAL PROHIBITION ON MONETIZATION AND COMMERCIAL USE
+You are strictly prohibited from utilizing this Software, or any portion of its logic, design, or concepts, for any financial gain, revenue generation, commercial enterprise, or business activity. This includes, but is not limited to:
+- Selling, renting, leasing, or sublicensing the Software or its code.
+- Displaying advertisements, sponsored content, or paywalls on any platform using this code or any mirror of it.
+- Utilizing this Software to promote, support, or integrate with any commercial service or product.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+5. PROHIBITION ON REVERSE ENGINEERING AND DECOMPILATION
+You may not reverse engineer, decompile, disassemble, or attempt to extract the underlying source code, algorithms, or backend architecture of this Software.
+
+6. PROHIBITION ON AI TRAINING AND DATA SCRAPING
+You are strictly prohibited from using any text, code, logic, or assets from this repository to train, fine-tune, or test machine learning models, large language models (LLMs), or artificial intelligence systems. Automated scraping, data mining, or harvesting of this repository is entirely banned.
+
+7. ABSOLUTE PRESERVATION OF COPYRIGHT AND BRANDING
+The removal, alteration, concealment, or obfuscation of any copyright notices, brand identifiers, logos, trademarks, text headers, author credits, or this license text is strictly prohibited under any and all circumstances. All attribution must remain completely visible exactly as originally written.
+
+8. NO WARRANTY OR LIABILITY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
