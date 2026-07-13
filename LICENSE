@@ -1,48 +1,54 @@
 SWXFT STUDIOS PROPRIETARY SOURCE CODE LICENSE AND TERMS OF SERVICE
 
-Version 1.0 — Effective Date: July 13, 2026
+Version 1.1 — Effective Date: July 13, 2026
 Copyright (c) 2026 Swxft Studios. All rights reserved.
 
 IMPORTANT: PLEASE READ THIS ENTIRE AGREEMENT CAREFULLY. BY VIEWING, DOWNLOADING, CLONING, ACCESSING, OR UTILIZING THE SOURCE CODE, FILES, GRAPHICS, OR ASSETS CONTAINED IN THIS REPOSITORY (COLLECTIVELY, THE "SOFTWARE"), YOU UNCONDITIONALLY AGREE TO BE BOUND BY ALL TERMS, CONDITIONS, AND RESTRICTIONS SPECIFIED HEREIN. THIS DOCUMENT CONSTITUTES A LEGALLY BINDING AND ENFORCEABLE CONTRACT BETWEEN YOU (THE "LICENSEE") AND SWXFT STUDIOS (THE "LICENSOR").
 
 1. DEFINITIONS
-"Licensor" refers to Swxft Studios and its authorized operators.
-"Licensee" refers to any individual, entity, or automated system accessing the Software.
-"Software" encompasses all source code, stylesheets, scripts, custom assets, user interface layouts, text, graphics, and conceptual frameworks contained in this repository.
-"Mirror" refers to any live, publicly hosted deployment or reproduction of the Software, in whole or in part, on any server, cloud provider, or domain.
+* "Licensor" refers to Swxft Studios and its authorized operators.
+* "Licensee" refers to any individual, entity, or automated system accessing the Software.
+* "Software" encompasses all source code, stylesheets, scripts, custom assets, user interface layouts, text, graphics, and conceptual frameworks contained in this repository.
+* "Mirror" refers to any live, publicly hosted deployment, serverless function, or reproduction of the Software, in whole or in part, on any server, cloud provider, or domain.
 
 2. LIMITED LICENSE GRANT & INTENDED USE
-Subject to strict compliance with this Agreement, Licensor grants Licensee a limited, non-exclusive, non-transferable, revocable license solely to view, read, and inspect the Software's underlying source code for personal, educational, or evaluation purposes. No ownership, trademark, or commercial rights are transferred under this Agreement.
+Subject to strict compliance with this Agreement, Licensor grants Licensee a limited, non-exclusive, non-transferable, revocable license solely to view, read, and inspect the Software's underlying source code for personal evaluation or educational review. No ownership, trademark, or commercial rights of any kind are transferred under this Agreement.
 
-3. COVENANT AGAINST MODIFICATIONS & DERIVATIVE WORKS
-Licensee covenants and agrees that they shall not alter, edit, modify, patch, refactored, rearrange, or create derivative works from any portion of the Software. The source code and visual presentation must remain identical to the original repository published by the Licensor.
+3. COVENANT AGAINST MODIFICATIONS FOR REDISTRIBUTION
+Licensee covenants and agrees that they shall not alter, edit, modify, patch, refactor, rearrange, or create derivative works from any portion of the Software for the purpose of public redistribution, deployment, or secondary repository publishing. The source code and visual presentation must remain identical to the original repository published by the Licensor. 
 
-4. CONDITIONAL MIRRORING AND MANDATORY DISCLAIMER
-Licensor acknowledges that public hosting platforms permit technical cloning. However, hosting a public or private Mirror of this Software is strictly conditional upon the absolute fulfillment of the following contractual mandate:
-a. Every web page served by the Mirror must contain a hardcoded, un-hidden, visible banner container at the absolute top of the HTML body (`<body>`).
-b. The banner must display the exact, unaltered text string: "THIS IS AN UNOFFICIAL, UNMODIFIED MIRROR OF THE SWXFT STUDIOS WEBSITE. THIS IS NOT THE OFFICIAL VERSION."
-c. The text must be rendered in a highly legible font, using a minimum font size of 14px, and must contrast sharply with the background color of the banner to ensure immediate visibility to any visitor.
-d. Failure to implement this exact banner configuration automatically voids any implied permission to host the code, rendering the deployment an unauthorized distribution and an immediate breach of copyright law.
+4. CONDITIONAL MIRRORING AND MANDATORY HTML BANNER IMPLEMENTATION
+Licensor acknowledges that public hosting platforms permit technical cloning. However, hosting a public or private Mirror of this Software is strictly conditional upon the absolute, literal fulfillment of the following contractual mandate:
+* Every web page served by the Mirror must contain a hardcoded, un-hidden, visible banner container at the absolute top of the HTML body (<body>).
+* Mandatory HTML Structure: Licensee must embed the exact following code block immediately after the opening <body> tag:
+
+<!-- MANDATORY SWXFT STUDIOS LICENSE BANNER -->
+<div id="swxft-studios-mirror-banner" style="display: block !important; visibility: visible !important; position: relative !important; width: 100% !important; background-color: #ff0033 !important; color: #ffffff !important; padding: 12px 20px !important; text-align: center !important; font-family: sans-serif !important; font-size: 14px !important; font-weight: bold !important; z-index: 999999 !important; border-bottom: 2px solid #000000 !important; box-sizing: border-box !important;">
+    THIS IS AN UNOFFICIAL, UNMODIFIED MIRROR OF THE SWXFT STUDIOS WEBSITE. THIS IS NOT THE OFFICIAL VERSION.
+</div>
+
+* The banner must remain entirely unobstructed, completely visible, and un-altered by custom CSS overrides or JavaScript script manipulations.
+* Failure to comply: Failure to implement this exact banner configuration automatically and retroactively voids any permission to host, deploy, or mirror the code, rendering the deployment an active, actionable copyright infringement.
 
 5. ABSOLUTE COMMERCIAL AND MONETIZATION PROHIBITION
 The Software may not be used for any commercial purposes or financial gain. Licensee shall not monetize the Software, or any Mirror thereof, through methods including, but not limited to: paid subscriptions, paywalls, embedded advertisements, sponsored content, programmatic ad units, affiliate networks, or commercial product promotions.
 
-6. PROHIBITION ON REVERSE ENGINEERING, SCRAPING, AND ARTIFICIAL INTELLIGENCE TRAINING
-Licensee is explicitly prohibited from:
-a. Decompiling, disassembling, or extracting backend operational routing logic from the Software.
-b. Utilizing automated web scrapers, data-mining tools, or harvesting bots to extract the Software's assets or code.
-c. Utilizing any portion of the Software's source code, text, or design language as input data to train, tune, validate, or test machine learning models, large language models (LLMs), or generative artificial intelligence engines.
+6. RESERVATION OF RIGHTS AGAINST ARTIFICIAL INTELLIGENCE TRAINING & SCRAPING
+* AI Training Opposition: Licensor explicitly reserves all text, data, and data mining rights regarding the Software. Licensee is strictly prohibited from utilizing any portion of the Software's source code, text, or design language as input data to train, fine-tune, validate, or test machine learning models, large language models (LLMs), or generative artificial intelligence engines.
+* Scraping Ban: Automated web scrapers, data-mining tools, or harvesting bots are entirely prohibited from extracting the Software's assets or code for third-party databases.
 
 7. ATTRIBUTION AND INTELLECTUAL PROPERTY PRESERVATION
 Licensee shall not remove, obscure, alter, or conceal any copyright notices, text headers, brand identifiers, logos, trademarks, or copies of this License file within the repository or any deployed Mirror.
 
 8. GOVERNING LAW, JURISDICTION, AND DISPUTE RESOLUTION
-This Agreement shall be governed by, construed, and enforced in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict of laws principles. Any legal action, suit, or proceeding arising out of or relating to this Agreement or the Software shall be instituted exclusively in the courts located in the judicial district of York Region or Toronto, Ontario, Canada, and each party irrevocably submits to the exclusive jurisdiction of such courts.
+This Agreement shall be governed by, construed, and enforced in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein. Any legal action, suit, or proceeding arising out of or relating to this Agreement or the Software shall be instituted exclusively in the courts located in the judicial district of York Region or Toronto, Ontario, Canada, and each party irrevocably submits to the exclusive jurisdiction of such courts.
 
 9. SEVERABILITY
 If any provision of this Agreement is held by a court of competent jurisdiction to be invalid, illegal, or unenforceable, the remaining provisions of this Agreement shall remain in full force and effect, and the invalid provision shall be substituted with an enforceable provision that most closely reflects the original intent of the Licensor.
 
-10. REMEDIES FOR BREACH
-Licensee acknowledges that a breach of this Agreement causes irreparable harm to Licensor for which monetary damages alone would be inadequate. Licensor reserves the right to seek immediate injunctive relief, specific performance, and statutory copyright damages. Licensor will aggressively enforce its rights via Digital Millennium Copyright Act (DMCA) takedown demands to hosting providers, registrars, and search engines for any non-compliant deployments.
+10. REMEDIES AND ENFORCEMENT PROCEDURES FOR BREACH
+Licensee acknowledges that a breach of this Agreement causes irreparable harm to Licensor for which monetary damages alone would be inadequate. In the event of a breach (including hosting a Mirror without the mandatory banner or violating the commercial ban), Licensor will execute the following remedies:
+* Immediate DMCA Takedown Notifications: Licensor will issue immediate Digital Millennium Copyright Act (DMCA) takedown demands directly to the hosting provider (e.g., Vercel, GitHub Pages, Netlify, AWS), domain registrar, and search engines (Google, Bing) to permanently remove the non-compliant deployment.
+* Legal Fees: Licensor reserves the right to seek statutory copyright damages and injunctive relief. Licensee agrees to assume liability for all reasonable attorney fees and court costs incurred by Licensor during successful enforcement actions.
 
 BY PROCEEDING TO USE, CLONE, OR VIEW THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE CONTRACTUALLY BOUND BY IT.
