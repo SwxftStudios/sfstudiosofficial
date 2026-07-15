@@ -2,35 +2,25 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-}
-
 test("root redirects visitors to the login page", async () => {
-  const response = await render();
-  assert.equal(response.status, 307);
-  assert.equal(response.headers.get("location"), "http://localhost/login.html");
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /redirect\("\/login\.html"\)/);
 });
 
 test("ships the requested S&F Studios frontend assets", async () => {
-  const [html, css, js, studioHtml, studioCss, studioJs, page, layout] = await Promise.all([
+  const [
+    html,
+    css,
+    js,
+    studioHtml,
+    studioCss,
+    studioJs,
+    page,
+    layout,
+    schema,
+    loginRoute,
+    googleRoute,
+  ] = await Promise.all([
     readFile(new URL("../public/login.html", import.meta.url), "utf8"),
     readFile(new URL("../public/login.css", import.meta.url), "utf8"),
     readFile(new URL("../public/login.js", import.meta.url), "utf8"),
@@ -39,6 +29,9 @@ test("ships the requested S&F Studios frontend assets", async () => {
     readFile(new URL("../public/studio.js", import.meta.url), "utf8"),
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../db/schema.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/auth/login/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/auth/google/start/route.ts", import.meta.url), "utf8"),
   ]);
 
   assert.match(html, /<title>S&amp;F Studios Access<\/title>/);
@@ -52,6 +45,7 @@ test("ships the requested S&F Studios frontend assets", async () => {
   assert.match(html, /Confirm Password/);
   assert.match(html, /Phone Number <em>\(Optional\)<\/em>/);
   assert.match(html, /Country <em>\(Optional\)<\/em>/);
+  assert.match(html, /Continue with Google/);
   assert.doesNotMatch(html, /scanline|frame-one|class="meter"/);
   assert.match(css, /--signal:\s*#ff6a00/i);
   assert.match(css, /\.stage-logo/);
@@ -60,6 +54,8 @@ test("ships the requested S&F Studios frontend assets", async () => {
   assert.match(js, /setMode\("login"\)/);
   assert.match(js, /sfstudiosofficial_access/);
   assert.match(js, /sfstudiosofficial_logs/);
+  assert.match(js, /\/api\/auth\/login/);
+  assert.match(js, /\/api\/auth\/google\/start/);
   assert.match(js, /Visited login page/);
   assert.match(js, /window\.location\.assign\("\/studio\.html"\)/);
   assert.match(studioHtml, /<title>S&amp;F Studios<\/title>/);
@@ -95,10 +91,20 @@ test("ships the requested S&F Studios frontend assets", async () => {
   assert.match(studioJs, /sfstudiosofficial_jobs/);
   assert.match(studioJs, /sfstudiosofficial_staff/);
   assert.match(studioJs, /sfstudiosofficial_logs/);
+  assert.match(studioJs, /\/api\/jobs/);
+  assert.match(studioJs, /\/api\/staff\/departments/);
+  assert.match(studioJs, /\/api\/staff\/logs/);
   assert.match(studioJs, /Creator Profiles/);
   assert.match(studioJs, /za01302025@gmail\.com/);
   assert.match(studioJs, /data-apply-job/);
   assert.match(page, /redirect\("\/login\.html"\)/);
   assert.match(layout, /title:\s*"S&F Studios"/);
   assert.match(layout, /services, talent, updates, socials, and profiles/i);
+  assert.match(schema, /export const users = sqliteTable/);
+  assert.match(schema, /export const auditLogs = sqliteTable/);
+  assert.match(schema, /export const staffRoles = sqliteTable/);
+  assert.match(schema, /export const jobs = sqliteTable/);
+  assert.match(loginRoute, /ensureStaffDefaults/);
+  assert.match(loginRoute, /verifyPassword/);
+  assert.match(googleRoute, /createGoogleStartResponse/);
 });

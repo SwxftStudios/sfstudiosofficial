@@ -356,6 +356,7 @@ button {
 }
 
 .primary-action,
+.google-action,
 .guest-action {
   min-height: 52px;
   border-radius: var(--radius);
@@ -379,19 +380,30 @@ button {
   background: rgba(251, 247, 239, 0.055);
 }
 
+.google-action {
+  border: 1px solid rgba(251, 247, 239, 0.34);
+  color: var(--paper);
+  background:
+    linear-gradient(135deg, rgba(251, 247, 239, 0.16), rgba(251, 247, 239, 0.04)),
+    rgba(11, 10, 8, 0.72);
+}
+
 .primary-action:hover,
+.google-action:hover,
 .guest-action:hover,
 .mode-button:hover,
 .link-button:hover {
   transform: translateY(-1px);
 }
 
+.google-action:hover,
 .guest-action:hover {
   border-color: var(--line-strong);
   background: rgba(251, 247, 239, 0.08);
 }
 
 .primary-action:active,
+.google-action:active,
 .guest-action:active,
 .mode-button:active {
   transform: translateY(0);
