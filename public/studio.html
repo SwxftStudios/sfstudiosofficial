@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S&amp;F Studios</title>
+    <meta
+      name="description"
+      content="S&F Studios official portal for showcases, services, talent jobs, announcements, socials, and profiles."
+    />
+    <meta property="og:title" content="S&F Studios" />
+    <meta
+      property="og:description"
+      content="S&F Studios portal for creators, clients, talent, updates, and official socials."
+    />
+    <meta property="og:image" content="/og.png" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/studio.css" />
+    <script src="/studio.js" defer></script>
+  </head>
+  <body>
+    <div class="scroll-meter" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <button
+        class="nav-brand"
+        type="button"
+        data-tab-target="home"
+        aria-label="S&F Studios home"
+      >
+        <img src="/sf-studios-logo.png" alt="" />
+        <span>S&amp;F Studios</span>
+      </button>
+
+      <nav class="site-nav" role="tablist" aria-label="S&F Studios sections">
+        <button class="nav-tab is-active" type="button" role="tab" data-tab-target="home">
+          Home
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="showcase">
+          Showcase
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="services">
+          Services &amp; Contact
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="talent">
+          Talent Hub
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="announcements">
+          Announcements &amp; Updates
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="socials">
+          Socials
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="profile">
+          Profile
+        </button>
+        <button class="nav-tab" type="button" role="tab" data-tab-target="staff">
+          Staff Panel
+        </button>
+      </nav>
+
+      <button class="logout-button" type="button" id="logoutButton">Exit</button>
+    </header>
+
+    <main>
+      <section
+        class="portal-panel hero-panel is-active"
+        id="home"
+        role="tabpanel"
+        aria-labelledby="homeTitle"
+      >
+        <div class="hero-copy">
+          <p class="eyebrow" id="welcomeLine">Welcome to the studio.</p>
+          <h1 id="homeTitle">S&amp;F Studios official portal.</h1>
+          <p>
+            Explore the studio, review services, post or apply for creative
+            work, manage your profile, and keep up with official updates.
+          </p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-tab-jump="talent">
+              Open Talent Hub
+            </button>
+            <button class="button button-secondary" type="button" data-tab-jump="services">
+              View Services
+            </button>
+          </div>
+        </div>
+
+        <div class="clean-logo-card" id="logoOrbit">
+          <img src="/sf-studios-logo.png" alt="S&F Studios logo" />
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="showcase"
+        role="tabpanel"
+        aria-labelledby="showcaseTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Showcase</p>
+          <h2 id="showcaseTitle">Featured work slots for S&amp;F drops.</h2>
+        </div>
+        <div class="showcase-grid">
+          <article class="showcase-card showcase-large">
+            <span>Featured Reel</span>
+            <h3>Studio launch reel</h3>
+            <p>Primary video, image, or campaign spotlight slot.</p>
+          </article>
+          <article class="showcase-card">
+            <span>Build</span>
+            <h3>Game worlds and sets</h3>
+            <p>Builder, modeller, and environment work can live here.</p>
+          </article>
+          <article class="showcase-card">
+            <span>Visuals</span>
+            <h3>GFX, VFX, concepts</h3>
+            <p>Artwork, edits, thumbnails, and motion frames.</p>
+          </article>
+          <article class="showcase-card">
+            <span>Web</span>
+            <h3>Apps and portals</h3>
+            <p>Frontend, backend, and app development showcases.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="services"
+        role="tabpanel"
+        aria-labelledby="servicesTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Services &amp; Contact</p>
+          <h2 id="servicesTitle">The full S&amp;F services list.</h2>
+        </div>
+        <div class="services-layout">
+          <div class="service-list" aria-label="S&F Studios services">
+            <span>UGC Creator</span>
+            <span>Game Designer</span>
+            <span>3D Modeller</span>
+            <span>Builder</span>
+            <span>VFX Artist</span>
+            <span>Scripter</span>
+            <span>Frontend Developer</span>
+            <span>Backend Developer</span>
+            <span>App Developer</span>
+            <span>Animator</span>
+            <span>GFX Artist</span>
+            <span>Concept Artist</span>
+            <span>UI/UX Designer</span>
+            <span>Audio Composer</span>
+            <span>Video Editor</span>
+            <span>Photo Editor</span>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <h3>Contact S&amp;F</h3>
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              <span>Service</span>
+              <select name="type" required>
+                <option value="">Choose one</option>
+                <option>UGC Creator</option>
+                <option>Game Designer</option>
+                <option>3D Modeller</option>
+                <option>Builder</option>
+                <option>VFX Artist</option>
+                <option>Scripter</option>
+                <option>Frontend Developer</option>
+                <option>Backend Developer</option>
+                <option>App Developer</option>
+                <option>Animator</option>
+                <option>GFX Artist</option>
+                <option>Concept Artist</option>
+                <option>UI/UX Designer</option>
+                <option>Audio Composer</option>
+                <option>Video Editor</option>
+                <option>Photo Editor</option>
+              </select>
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" placeholder="Tell us what you need." required></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Send Request</button>
+            <p class="contact-status" id="contactStatus" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="talent"
+        role="tabpanel"
+        aria-labelledby="talentTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Talent Hub</p>
+          <h2 id="talentTitle">Search jobs. Review creators. Apply with proof.</h2>
+        </div>
+
+        <div class="talent-stats" aria-label="Talent Hub overview">
+          <article>
+            <span id="openJobCount">0</span>
+            <strong>Open jobs</strong>
+          </article>
+          <article>
+            <span>16</span>
+            <strong>Service categories</strong>
+          </article>
+          <article>
+            <span id="creatorCount">0</span>
+            <strong>Creator profiles</strong>
+          </article>
+          <article>
+            <span id="applicationCount">0</span>
+            <strong>Applications logged</strong>
+          </article>
+        </div>
+
+        <div class="talent-tools">
+          <label>
+            <span>Search Jobs</span>
+            <input id="jobSearch" type="search" placeholder="Search title, category, contact, description" />
+          </label>
+          <label>
+            <span>Category</span>
+            <select id="jobCategoryFilter">
+              <option value="">All categories</option>
+              <option>UGC Creator</option>
+              <option>Game Designer</option>
+              <option>3D Modeller</option>
+              <option>Builder</option>
+              <option>VFX Artist</option>
+              <option>Scripter</option>
+              <option>Frontend Developer</option>
+              <option>Backend Developer</option>
+              <option>App Developer</option>
+              <option>Animator</option>
+              <option>GFX Artist</option>
+              <option>Concept Artist</option>
+              <option>UI/UX Designer</option>
+              <option>Audio Composer</option>
+              <option>Video Editor</option>
+              <option>Photo Editor</option>
+            </select>
+          </label>
+          <label>
+            <span>Pay Type</span>
+            <select id="jobPayFilter">
+              <option value="">Any pay</option>
+              <option value="robux">Robux</option>
+              <option value="usd">USD</option>
+              <option value="percent">Revenue share</option>
+              <option value="contract">Contract</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="talent-layout">
+          <form class="job-form" id="jobForm">
+            <h3>Post a Job</h3>
+            <label>
+              <span>Job Title</span>
+              <input name="title" type="text" placeholder="Video editor for launch reel" required />
+            </label>
+            <label>
+              <span>Service Type</span>
+              <select name="category" required>
+                <option value="">Choose one</option>
+                <option>UGC Creator</option>
+                <option>Game Designer</option>
+                <option>3D Modeller</option>
+                <option>Builder</option>
+                <option>VFX Artist</option>
+                <option>Scripter</option>
+                <option>Frontend Developer</option>
+                <option>Backend Developer</option>
+                <option>App Developer</option>
+                <option>Animator</option>
+                <option>GFX Artist</option>
+                <option>Concept Artist</option>
+                <option>UI/UX Designer</option>
+                <option>Audio Composer</option>
+                <option>Video Editor</option>
+                <option>Photo Editor</option>
+              </select>
+            </label>
+            <div class="field-row">
+              <label>
+                <span>Pay Amount</span>
+                <input name="pay" type="text" placeholder="$250 flat" required />
+              </label>
+              <label>
+                <span>Contact Information</span>
+                <input name="contact" type="text" placeholder="email or Discord" required />
+              </label>
+            </div>
+            <label>
+              <span>Job Image URL</span>
+              <input name="imageUrl" type="url" placeholder="https://..." />
+            </label>
+            <div class="field-row">
+              <label>
+                <span>Timeline</span>
+                <input name="timeline" type="text" placeholder="2 weeks, urgent, ongoing" />
+              </label>
+              <label>
+                <span>Experience Level</span>
+                <select name="level">
+                  <option>Any level</option>
+                  <option>Beginner friendly</option>
+                  <option>Intermediate</option>
+                  <option>Senior / lead</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>Information</span>
+              <textarea name="description" placeholder="Describe the project, timeline, and files needed." required></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Publish Job</button>
+            <p class="contact-status" id="jobStatus" aria-live="polite"></p>
+          </form>
+
+          <div>
+            <div class="job-list" id="jobList" aria-live="polite"></div>
+            <div class="application-panel" id="applicationPanel" aria-live="polite">
+              <h3>Application Preview</h3>
+              <p>Apply to a job and this area will show the profile packet a poster receives.</p>
+            </div>
+            <div class="creator-board" id="creatorBoard" aria-label="Featured creator profiles"></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="announcements"
+        role="tabpanel"
+        aria-labelledby="announcementsTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Announcements &amp; Updates</p>
+          <h2 id="announcementsTitle">Official studio updates.</h2>
+        </div>
+        <div class="update-grid">
+          <article>
+            <span>Launch</span>
+            <h3>S&amp;F Studios portal is live.</h3>
+            <p>The site now has tabs for work, services, jobs, socials, and profiles.</p>
+          </article>
+          <article>
+            <span>Coming Soon</span>
+            <h3>Staff upload slots.</h3>
+            <p>Showcase, announcements, and socials are ready for a staff panel backend.</p>
+          </article>
+          <article>
+            <span>Talent</span>
+            <h3>Portfolio-first applications.</h3>
+            <p>Applicants can build a profile so posters can review bio and work samples.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="socials"
+        role="tabpanel"
+        aria-labelledby="socialsTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Socials</p>
+          <h2 id="socialsTitle">Official S&amp;F channels.</h2>
+        </div>
+        <div class="social-grid">
+          <article>
+            <span>@sfstudiosofficial</span>
+            <h3>Instagram</h3>
+            <p>Main visual feed and studio drops.</p>
+          </article>
+          <article>
+            <span>@sfstudiosofficial</span>
+            <h3>TikTok</h3>
+            <p>Shorts, edits, behind the scenes, and creator clips.</p>
+          </article>
+          <article>
+            <span>S&amp;F Studios</span>
+            <h3>YouTube</h3>
+            <p>Reels, trailers, breakdowns, and longer uploads.</p>
+          </article>
+          <article>
+            <span>Community</span>
+            <h3>Discord</h3>
+            <p>Talent hub, project talk, and announcements.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="profile"
+        role="tabpanel"
+        aria-labelledby="profileTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Profile</p>
+          <h2 id="profileTitle">Profile settings.</h2>
+        </div>
+        <div class="profile-layout">
+          <form class="profile-form" id="profileForm">
+            <h3>Account Information</h3>
+            <div class="profile-preview">
+              <img id="profilePreview" src="/sf-studios-logo.png" alt="Profile icon preview" />
+              <div>
+                <strong id="profilePreviewName">Studio Member</strong>
+                <span id="profilePreviewBio">No bio saved yet.</span>
+              </div>
+            </div>
+            <div class="field-row">
+              <label>
+                <span>First Name</span>
+                <input id="profileFirstName" name="firstName" type="text" placeholder="First name" />
+              </label>
+              <label>
+                <span>Last Name</span>
+                <input id="profileLastName" name="lastName" type="text" placeholder="Last name" />
+              </label>
+            </div>
+            <label>
+              <span>Profile Icon URL</span>
+              <input id="profileIcon" name="icon" type="url" placeholder="https://..." />
+            </label>
+            <label>
+              <span>Bio</span>
+              <textarea id="profileBio" name="bio" placeholder="Tell job posters who you are and what you make."></textarea>
+            </label>
+            <label>
+              <span>Portfolio Links</span>
+              <textarea id="profilePortfolio" name="portfolio" placeholder="One link per line."></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Save Profile</button>
+            <p class="contact-status" id="profileStatus" aria-live="polite"></p>
+          </form>
+
+          <form class="security-form" id="securityForm">
+            <h3>Security</h3>
+            <label>
+              <span>Current Password</span>
+              <input name="currentPassword" type="password" autocomplete="current-password" />
+            </label>
+            <label>
+              <span>New Password</span>
+              <input name="newPassword" type="password" autocomplete="new-password" minlength="8" />
+            </label>
+            <label>
+              <span>Confirm Password</span>
+              <input name="confirmPassword" type="password" autocomplete="new-password" />
+            </label>
+            <label class="check-row">
+              <input name="loginAlerts" type="checkbox" checked />
+              <span>Send login alerts when backend security is connected</span>
+            </label>
+            <button class="button button-secondary" type="submit">Update Security</button>
+            <p class="contact-status" id="securityStatus" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section
+        class="portal-panel"
+        id="staff"
+        role="tabpanel"
+        aria-labelledby="staffTitle"
+        hidden
+      >
+        <div class="section-heading">
+          <p>Staff Panel</p>
+          <h2 id="staffTitle">Founder controls, teams, roles, permissions.</h2>
+        </div>
+
+        <form class="staff-login" id="staffLoginForm">
+          <h3>Founder Login</h3>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="button button-primary" type="submit">Enter Staff Panel</button>
+          <p class="contact-status" id="staffLoginStatus" aria-live="polite"></p>
+        </form>
+
+        <div class="staff-dashboard" id="staffDashboard" hidden>
+          <div class="staff-toolbar">
+            <div>
+              <p class="eyebrow">Founder session</p>
+              <h3>Executives Department</h3>
+            </div>
+            <button class="button button-secondary" type="button" id="staffLogoutButton">
+              Lock Staff Panel
+            </button>
+          </div>
+
+          <div class="staff-grid">
+            <form class="staff-card" id="departmentForm">
+              <h3>Add Department</h3>
+              <label>
+                <span>Department Name</span>
+                <input name="departmentName" type="text" placeholder="Marketing, Production, Moderation" required />
+              </label>
+              <button class="button button-primary" type="submit">Add Department</button>
+            </form>
+
+            <form class="staff-card" id="roleForm">
+              <h3>Create Role</h3>
+              <label>
+                <span>Department</span>
+                <select name="department" id="roleDepartment"></select>
+              </label>
+              <label>
+                <span>Role Name</span>
+                <input name="roleName" type="text" placeholder="Executive Director" required />
+              </label>
+              <div class="permission-grid" aria-label="Role permissions">
+                <label><input type="checkbox" name="permissions" value="manage_departments" /> Departments</label>
+                <label><input type="checkbox" name="permissions" value="manage_roles" /> Roles</label>
+                <label><input type="checkbox" name="permissions" value="manage_showcase" /> Showcase</label>
+                <label><input type="checkbox" name="permissions" value="manage_services" /> Services</label>
+                <label><input type="checkbox" name="permissions" value="manage_jobs" /> Jobs</label>
+                <label><input type="checkbox" name="permissions" value="review_applications" /> Applications</label>
+                <label><input type="checkbox" name="permissions" value="manage_announcements" /> Updates</label>
+                <label><input type="checkbox" name="permissions" value="manage_socials" /> Socials</label>
+                <label><input type="checkbox" name="permissions" value="view_logs" /> Logs</label>
+                <label><input type="checkbox" name="permissions" value="security" /> Security</label>
+              </div>
+              <button class="button button-primary" type="submit">Create Role</button>
+            </form>
+
+            <form class="staff-card" id="logFilterForm">
+              <h3>Log Filters</h3>
+              <label>
+                <span>Category</span>
+                <select id="logCategoryFilter">
+                  <option value="">All categories</option>
+                  <option>visit</option>
+                  <option>auth</option>
+                  <option>profile</option>
+                  <option>job</option>
+                  <option>application</option>
+                  <option>staff</option>
+                  <option>security</option>
+                  <option>contact</option>
+                </select>
+              </label>
+              <label>
+                <span>Actor / Role / Department / Name</span>
+                <input id="logActorFilter" type="search" placeholder="Founder, Executives, guest, Farhan" />
+              </label>
+              <button class="button button-secondary" type="button" id="clearLogsButton">Clear Logs</button>
+            </form>
+          </div>
+
+          <div class="staff-output">
+            <section class="staff-card">
+              <h3>Departments &amp; Roles</h3>
+              <div id="departmentList"></div>
+            </section>
+            <section class="staff-card">
+              <h3>Activity Log</h3>
+              <div class="log-list" id="logList"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img src="/sf-studios-logo.png" alt="" />
+        <div>
+          <strong>S&amp;F Studios</strong>
+          <span>@sfstudiosofficial</span>
+        </div>
+      </div>
+      <div class="footer-links" aria-label="Footer navigation">
+        <button type="button" data-tab-target="home">Home</button>
+        <button type="button" data-tab-target="showcase">Showcase</button>
+        <button type="button" data-tab-target="services">Services</button>
+        <button type="button" data-tab-target="talent">Talent Hub</button>
+        <button type="button" data-tab-target="announcements">Updates</button>
+        <button type="button" data-tab-target="socials">Socials</button>
+        <button type="button" data-tab-target="profile">Profile</button>
+        <button type="button" data-tab-target="staff">Staff Panel</button>
+      </div>
+    </footer>
+  </body>
+</html>
