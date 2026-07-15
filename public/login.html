@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>S&amp;F Studios Access</title>
+    <meta
+      name="description"
+      content="Login, sign up, or continue as a guest for S&F Studios."
+    />
+    <meta property="og:title" content="S&F Studios Access" />
+    <meta
+      property="og:description"
+      content="The official access page for S&F Studios."
+    />
+    <meta property="og:image" content="/og.png" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/login.css" />
+    <script src="/login.js" defer></script>
+  </head>
+  <body data-mode="login">
+    <main class="access-stage" aria-labelledby="pageTitle">
+      <section class="brand-field" aria-label="S&F Studios">
+        <div class="brand-lockup" aria-label="S&F Studios official">
+          <img
+            class="brand-avatar"
+            src="/sf-studios-logo.png"
+            alt="S&F Studios logo"
+          />
+          <div>
+            <p class="brand-name">S&amp;F Studios</p>
+            <p class="brand-handle">@sfstudiosofficial</p>
+          </div>
+        </div>
+
+        <div class="stage-window">
+          <img
+            class="stage-logo"
+            src="/sf-studios-logo.png"
+            alt="S&F Studios chrome and fire logo"
+          />
+        </div>
+
+        <div class="brand-copy">
+          <h1 id="pageTitle">S&amp;F Studios access</h1>
+          <p>
+            Ignite the studio door. Login first, then step into the full
+            S&amp;F Studios experience.
+          </p>
+        </div>
+      </section>
+
+      <section class="auth-shell" aria-label="Account access">
+        <div class="mode-switch" role="tablist" aria-label="Choose access mode">
+          <button
+            class="mode-button is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="loginPanel"
+            data-mode-target="login"
+          >
+            Login
+          </button>
+          <button
+            class="mode-button"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="signupPanel"
+            data-mode-target="signup"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <div class="status-line" aria-live="polite" data-kind="neutral">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="formStatus">Login is ready.</span>
+        </div>
+
+        <section
+          class="auth-panel is-active"
+          id="loginPanel"
+          role="tabpanel"
+          aria-labelledby="loginTab"
+        >
+          <form id="loginForm" novalidate>
+            <div class="form-title">
+              <h2>Login</h2>
+              <p>Enter the studio with your email and password.</p>
+            </div>
+
+            <label class="field">
+              <span>Email</span>
+              <input
+                id="loginEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input
+                id="loginPassword"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Your password"
+                required
+              />
+            </label>
+
+            <button class="link-button" type="button" id="forgotPassword">
+              Forgot Password
+            </button>
+
+            <button class="primary-action" type="submit">Login</button>
+            <button class="guest-action" type="button" data-guest>
+              Continue As Guest
+            </button>
+          </form>
+        </section>
+
+        <section class="auth-panel" id="signupPanel" role="tabpanel" hidden>
+          <form id="signupForm" novalidate>
+            <div class="form-title">
+              <h2>Sign Up</h2>
+              <p>Create your S&amp;F Studios access pass.</p>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>First Name</span>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  autocomplete="given-name"
+                  placeholder="First name"
+                  required
+                />
+              </label>
+
+              <label class="field">
+                <span>Last Name <em>(Optional)</em></span>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  autocomplete="family-name"
+                  placeholder="Last name"
+                />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Email</span>
+              <input
+                id="signupEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Password</span>
+                <input
+                  id="signupPassword"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="Create password"
+                  required
+                  minlength="8"
+                />
+              </label>
+
+              <label class="field">
+                <span>Confirm Password</span>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autocomplete="new-password"
+                  placeholder="Repeat password"
+                  required
+                />
+              </label>
+            </div>
+
+            <div class="strength" aria-hidden="true">
+              <span class="strength-track"><span id="strengthFill"></span></span>
+              <span id="strengthLabel">Password meter</span>
+            </div>
+
+            <label class="field">
+              <span>Phone Number <em>(Optional)</em></span>
+              <input
+                id="phoneNumber"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+1 555 000 0000"
+              />
+            </label>
+
+            <label class="field">
+              <span>Country <em>(Optional)</em></span>
+              <select id="country" name="country" autocomplete="country-name">
+                <option value="">Select a country</option>
+                <option>United States</option>
+                <option>Canada</option>
+                <option>United Kingdom</option>
+                <option>Australia</option>
+                <option>India</option>
+                <option>Philippines</option>
+                <option>Brazil</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>Japan</option>
+                <option>South Korea</option>
+                <option>South Africa</option>
+                <option>Mexico</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <button class="primary-action" type="submit">Sign Up</button>
+            <button class="guest-action" type="button" data-guest>
+              Continue As Guest
+            </button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
