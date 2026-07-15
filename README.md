@@ -1,8 +1,9 @@
-# vinext-starter
+# S&F Studios Official
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+Official S&F Studios frontend and backend portal. The first screen redirects to
+the custom access page, then authenticated users can enter the studio portal for
+showcase, services, Talent Hub, announcements, socials, profiles, and staff
+administration.
 
 ## Prerequisites
 
@@ -20,12 +21,66 @@ This starter does not use `wrangler.jsonc`.
 
 ## Included Shape
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+- `public/login.html`, `public/login.css`, `public/login.js`: custom access UI
+- `public/studio.html`, `public/studio.css`, `public/studio.js`: studio portal
+- `app/api/**`: backend routes for auth, Google OAuth, Talent Hub, staff, logs, content, profile, and contact
+- `db/schema.ts`: Drizzle schema for Cloudflare D1
+- `drizzle/`: generated SQL migrations
+- `.openai/hosting.json`: Sites config with the `DB` D1 binding enabled
+
+## Backend Setup
+
+The backend uses Cloudflare D1 through the binding name `DB`. After schema
+changes, run:
+
+```bash
+npm run db:generate
+```
+
+The generated SQL in `drizzle/` must be applied to the deployed D1 database by
+the hosting/deployment platform.
+
+## Environment Variables
+
+Required before production:
+
+- `APP_SESSION_SECRET`: long random string used to hash session cookies
+- `FOUNDER_EMAIL`: founder bootstrap email
+- `FOUNDER_PASSWORD`: temporary founder bootstrap password
+
+Required for Google login:
+
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_REDIRECT_URI`
+
+For this site, the Google OAuth redirect URI should be:
+
+```text
+https://YOUR_DOMAIN/api/auth/google/callback
+```
+
+For local development, use:
+
+```text
+http://localhost:3000/api/auth/google/callback
+```
+
+Without Google keys, the Google button returns to the login page with a setup
+message instead of completing OAuth.
+
+## Backend Features
+
+- Password sign up/login with server-side PBKDF2 password hashing
+- HttpOnly session cookies
+- Google OAuth start/callback routes
+- Founder bootstrap account and default `Executives` department
+- Custom staff departments and roles with per-role permissions
+- Audit logs for visits, auth, profile updates, jobs, applications, staff actions, security, and contact
+- Talent Hub jobs and applications
+- User profiles and portfolio links
+- Staff-managed content blocks for showcase, services, announcements, and socials
+- Contact/service requests
 
 ## Workspace Auth Headers
 

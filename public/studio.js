@@ -1,6 +1,12 @@
 const access = JSON.parse(
   window.localStorage.getItem("sfstudiosofficial_access") || "null",
 );
+let backendSession = null;
+let backendJobs = [];
+let backendPortfolio = [];
+let backendStaff = null;
+let backendLogs = [];
+let logsLoadedFromBackend = false;
 
 const defaultJobs = [
   {
@@ -160,7 +166,35 @@ function writeJson(key, value) {
   window.localStorage.setItem(key, JSON.stringify(value));
 }
 
+async function apiJson(path, options = {}) {
+  const response = await fetch(path, {
+    credentials: "same-origin",
+    headers: {
+      "content-type": "application/json",
+      ...(options.headers || {}),
+    },
+    ...options,
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(payload.error || "Backend request failed.");
+    error.status = response.status;
+    throw error;
+  }
+  return payload;
+}
+
+function backendUnavailable(error) {
+  return error.status >= 500 || /database|d1|binding|not ready/i.test(error.message || "");
+}
+
 function actorLabel() {
+  if (backendSession?.user) {
+    return (
+      [backendSession.user.firstName, backendSession.user.lastName].filter(Boolean).join(" ") ||
+      backendSession.user.email
+    );
+  }
   const profile = getProfile();
   const name = [profile.firstName, profile.lastName].filter(Boolean).join(" ");
   if (name) return name;
@@ -195,6 +229,14 @@ function escapeHtml(value) {
 }
 
 function writeWelcome() {
+  if (backendSession?.user) {
+    const name =
+      [backendSession.user.firstName, backendSession.user.lastName].filter(Boolean).join(" ") ||
+      backendSession.user.email;
+    welcomeLine.textContent = `Welcome back, ${name}.`;
+    return;
+  }
+
   if (!access) {
     welcomeLine.textContent = "Preview access active.";
     return;
@@ -242,13 +284,27 @@ function setActiveTab(tabId, shouldScroll = true) {
 }
 
 function getProfile() {
-  return readJson("sfstudiosofficial_profile", {
+  const savedProfile = readJson("sfstudiosofficial_profile", {});
+  const backendUser = backendSession?.user;
+  return {
     firstName: access?.firstName || "",
     lastName: "",
     icon: "/sf-studios-logo.png",
     bio: "",
     portfolio: [],
-  });
+    ...savedProfile,
+    ...(backendUser
+      ? {
+          firstName: backendUser.firstName || savedProfile.firstName || "",
+          lastName: backendUser.lastName || savedProfile.lastName || "",
+          icon: backendUser.avatarUrl || savedProfile.icon || "/sf-studios-logo.png",
+          bio: backendUser.bio || savedProfile.bio || "",
+          portfolio: backendPortfolio.length
+            ? backendPortfolio.map((item) => item.url)
+            : savedProfile.portfolio || [],
+        }
+      : {}),
+  };
 }
 
 function normalizePortfolio(value) {
@@ -278,7 +334,7 @@ function getCustomJobs() {
 }
 
 function getAllJobs() {
-  return [...getCustomJobs(), ...defaultJobs];
+  return [...backendJobs, ...getCustomJobs(), ...defaultJobs];
 }
 
 function filteredJobs() {
@@ -369,7 +425,7 @@ function renderCreators() {
   `;
 }
 
-function applyToJob(jobId) {
+async function applyToJob(jobId) {
   const job = getAllJobs().find((item) => item.id === jobId);
   if (!job) return;
 
@@ -399,11 +455,33 @@ function applyToJob(jobId) {
     createdAt: new Date().toISOString(),
   });
   writeJson("sfstudiosofficial_applications", applications.slice(0, 100));
+
+  try {
+    await apiJson("/api/applications", {
+      method: "POST",
+      body: JSON.stringify({
+        jobId,
+        applicantName: displayName || "Studio Member",
+        contact: backendSession?.user?.email || access?.email || "",
+        bio: profile.bio || "",
+        portfolio: profile.portfolio || [],
+      }),
+    });
+  } catch (error) {
+    if (!backendUnavailable(error) && error.status !== 404) {
+      applicationPanel.insertAdjacentHTML(
+        "beforeend",
+        `<p>${escapeHtml(error.message || "Application was saved locally only.")}</p>`,
+      );
+    }
+  }
+
   addLog("application", `Applied to ${job.title}`, { jobId, jobTitle: job.title });
   renderTalentStats();
 }
 
 function getStaffData() {
+  if (backendStaff) return { departments: backendStaff };
   return readJson("sfstudiosofficial_staff", {
     departments: [
       {
@@ -437,7 +515,39 @@ function saveStaffData(data) {
 }
 
 function isFounderSession() {
-  return Boolean(readJson("sfstudiosofficial_staff_session", null));
+  return Boolean(
+    backendSession?.permissions?.includes("manage_roles") ||
+      readJson("sfstudiosofficial_staff_session", null),
+  );
+}
+
+async function refreshStaffFromBackend() {
+  try {
+    const data = await apiJson("/api/staff/departments");
+    backendStaff = data.departments || [];
+    await refreshLogsFromBackend();
+    return true;
+  } catch (error) {
+    if (!backendUnavailable(error) && error.status !== 401 && error.status !== 403) {
+      staffLoginStatus.textContent = error.message || "Staff panel could not load.";
+    }
+    return false;
+  }
+}
+
+async function refreshLogsFromBackend() {
+  try {
+    const params = new URLSearchParams();
+    if (logCategoryFilter?.value) params.set("category", logCategoryFilter.value);
+    if (logActorFilter?.value.trim()) params.set("actor", logActorFilter.value.trim());
+    const data = await apiJson(`/api/staff/logs${params.toString() ? `?${params}` : ""}`);
+    backendLogs = data.logs || [];
+    logsLoadedFromBackend = true;
+  } catch (error) {
+    if (!backendUnavailable(error) && error.status !== 401 && error.status !== 403) {
+      staffLoginStatus.textContent = error.message || "Logs could not load.";
+    }
+  }
 }
 
 function renderStaffPanel() {
@@ -480,9 +590,12 @@ function renderLogs() {
   if (!logList) return;
   const category = logCategoryFilter?.value || "";
   const actorQuery = (logActorFilter?.value || "").trim().toLowerCase();
-  const logs = readJson("sfstudiosofficial_logs", []).filter((log) => {
+  const sourceLogs = logsLoadedFromBackend ? backendLogs : readJson("sfstudiosofficial_logs", []);
+  const logs = sourceLogs.filter((log) => {
     const matchesCategory = !category || log.category === category;
-    const actorFields = `${log.actor} ${log.role} ${log.department}`.toLowerCase();
+    const actorFields = `${log.actor || log.actorName} ${log.role || log.roleName} ${
+      log.department || log.departmentName
+    }`.toLowerCase();
     const matchesActor = !actorQuery || actorFields.includes(actorQuery);
     return matchesCategory && matchesActor;
   });
@@ -492,14 +605,41 @@ function renderLogs() {
         .map(
           (log) => `
             <article>
-              <span>${escapeHtml(log.category)} / ${escapeHtml(log.department)} / ${escapeHtml(log.role)}</span>
+              <span>${escapeHtml(log.category)} / ${escapeHtml(log.department || log.departmentName)} / ${escapeHtml(log.role || log.roleName)}</span>
               <strong>${escapeHtml(log.action)}</strong>
-              <p>${escapeHtml(log.actor)} - ${new Date(log.createdAt).toLocaleString()}</p>
+              <p>${escapeHtml(log.actor || log.actorName)} - ${new Date(log.createdAt).toLocaleString()}</p>
             </article>
           `,
         )
         .join("")
     : "<p>No logs match the current filters.</p>";
+}
+
+async function hydrateBackend() {
+  try {
+    const sessionData = await apiJson("/api/auth/me");
+    backendSession = sessionData.session || null;
+    backendPortfolio = sessionData.portfolio || [];
+  } catch {
+    backendSession = null;
+  }
+
+  try {
+    const jobsData = await apiJson("/api/jobs");
+    backendJobs = jobsData.jobs || [];
+  } catch {
+    backendJobs = [];
+  }
+
+  if (backendSession?.permissions?.includes("manage_roles")) {
+    await refreshStaffFromBackend();
+  }
+
+  writeWelcome();
+  renderProfile();
+  renderJobs();
+  renderCreators();
+  renderStaffPanel();
 }
 
 tabButtons.forEach((button) => {
@@ -525,20 +665,35 @@ if (logoOrbit) {
   });
 }
 
-contactForm.addEventListener("submit", (event) => {
+contactForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  contactStatus.textContent = "Request saved for backend delivery.";
+  const data = new FormData(contactForm);
+  try {
+    await apiJson("/api/contact", {
+      method: "POST",
+      body: JSON.stringify({
+        name: data.get("name").toString().trim(),
+        type: data.get("type").toString(),
+        message: data.get("message").toString().trim(),
+        email: backendSession?.user?.email || access?.email || "",
+      }),
+    });
+    contactStatus.textContent = "Request saved to the backend.";
+  } catch (error) {
+    contactStatus.textContent = backendUnavailable(error)
+      ? "Request saved locally while the backend is being provisioned."
+      : error.message || "Request could not be saved.";
+  }
   addLog("contact", "Submitted service request");
   contactForm.reset();
 });
 
-jobForm.addEventListener("submit", (event) => {
+jobForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(jobForm);
   const customJobs = getCustomJobs();
   const title = data.get("title").toString().trim();
-
-  customJobs.unshift({
+  const nextJob = {
     id: `job-${Date.now()}`,
     title,
     category: data.get("category").toString(),
@@ -555,10 +710,26 @@ jobForm.addEventListener("submit", (event) => {
           ? "contract"
           : "usd",
     description: data.get("description").toString().trim(),
-  });
+  };
 
-  writeJson("sfstudiosofficial_jobs", customJobs);
-  jobStatus.textContent = `${title} is now listed.`;
+  try {
+    const result = await apiJson("/api/jobs", {
+      method: "POST",
+      body: JSON.stringify(nextJob),
+    });
+    backendJobs.unshift(result.job);
+    jobStatus.textContent = `${title} is now listed on the backend.`;
+  } catch (error) {
+    if (!backendUnavailable(error)) {
+      jobStatus.textContent = error.message || "Job could not be listed.";
+      return;
+    }
+
+    customJobs.unshift(nextJob);
+    writeJson("sfstudiosofficial_jobs", customJobs);
+    jobStatus.textContent = `${title} is now listed locally.`;
+  }
+
   addLog("job", `Posted job: ${title}`, { title, category: data.get("category").toString() });
   jobForm.reset();
   renderJobs();
@@ -571,7 +742,7 @@ jobList.addEventListener("click", (event) => {
   }
 });
 
-profileForm.addEventListener("submit", (event) => {
+profileForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(profileForm);
   const profile = {
@@ -583,7 +754,22 @@ profileForm.addEventListener("submit", (event) => {
   };
 
   writeJson("sfstudiosofficial_profile", profile);
-  profileStatus.textContent = "Profile saved.";
+  try {
+    const result = await apiJson("/api/profile", {
+      method: "PUT",
+      body: JSON.stringify(profile),
+    });
+    backendSession = {
+      ...(backendSession || {}),
+      user: result.user,
+    };
+    backendPortfolio = result.portfolio || [];
+    profileStatus.textContent = "Profile saved to the backend.";
+  } catch (error) {
+    profileStatus.textContent = backendUnavailable(error) || error.status === 401
+      ? "Profile saved locally."
+      : error.message || "Profile could not be saved.";
+  }
   addLog("profile", "Updated profile", { name: [profile.firstName, profile.lastName].filter(Boolean).join(" ") });
   renderProfile();
   renderCreators();
@@ -605,11 +791,43 @@ securityForm.addEventListener("submit", (event) => {
   securityForm.reset();
 });
 
-staffLoginForm.addEventListener("submit", (event) => {
+staffLoginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(staffLoginForm);
   const email = data.get("email").toString().trim().toLowerCase();
   const password = data.get("password").toString();
+
+  try {
+    await apiJson("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+    const sessionData = await apiJson("/api/auth/me");
+    backendSession = sessionData.session || null;
+    backendPortfolio = sessionData.portfolio || [];
+    if (!backendSession?.permissions?.includes("manage_roles")) {
+      staffLoginStatus.textContent = "This account does not have staff permissions.";
+      return;
+    }
+    await refreshStaffFromBackend();
+    writeJson("sfstudiosofficial_staff_session", {
+      email,
+      role: backendSession.role?.name || "Founder",
+      department: backendSession.department?.name || "Executives",
+      createdAt: new Date().toISOString(),
+    });
+    staffLoginStatus.textContent = "";
+    staffLoginForm.reset();
+    addLog("staff", "Founder logged into staff panel", { role: "Founder", department: "Executives" }, email);
+    renderStaffPanel();
+    writeWelcome();
+    return;
+  } catch (error) {
+    if (!backendUnavailable(error)) {
+      staffLoginStatus.textContent = error.message || "Founder login failed.";
+      return;
+    }
+  }
 
   if (email !== founderCredentials.email || password !== founderCredentials.password) {
     staffLoginStatus.textContent = "Founder login failed.";
@@ -629,16 +847,44 @@ staffLoginForm.addEventListener("submit", (event) => {
   renderStaffPanel();
 });
 
-staffLogoutButton.addEventListener("click", () => {
+staffLogoutButton.addEventListener("click", async () => {
+  try {
+    await apiJson("/api/auth/logout", { method: "POST", body: "{}" });
+  } catch {
+    // Local lock still works when the backend is not available.
+  }
+  backendSession = null;
+  backendStaff = null;
+  logsLoadedFromBackend = false;
   window.localStorage.removeItem("sfstudiosofficial_staff_session");
   addLog("staff", "Founder locked staff panel", { role: "Founder", department: "Executives" });
   renderStaffPanel();
 });
 
-departmentForm.addEventListener("submit", (event) => {
+departmentForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(departmentForm);
   const name = data.get("departmentName").toString().trim();
+
+  if (backendSession?.permissions?.includes("manage_departments")) {
+    try {
+      const result = await apiJson("/api/staff/departments", {
+        method: "POST",
+        body: JSON.stringify({ name }),
+      });
+      backendStaff = result.departments || backendStaff;
+      await refreshLogsFromBackend();
+      departmentForm.reset();
+      renderStaffPanel();
+      return;
+    } catch (error) {
+      if (!backendUnavailable(error)) {
+        staffLoginStatus.textContent = error.message || "Department could not be added.";
+        return;
+      }
+    }
+  }
+
   const staff = getStaffData();
   const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `department-${Date.now()}`;
 
@@ -652,13 +898,37 @@ departmentForm.addEventListener("submit", (event) => {
   renderStaffPanel();
 });
 
-roleForm.addEventListener("submit", (event) => {
+roleForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(roleForm);
-  const staff = getStaffData();
-  const department = staff.departments.find((item) => item.id === data.get("department"));
   const name = data.get("roleName").toString().trim();
   const permissions = data.getAll("permissions").map((permission) => permission.toString());
+
+  if (backendSession?.permissions?.includes("manage_roles")) {
+    try {
+      const result = await apiJson("/api/staff/roles", {
+        method: "POST",
+        body: JSON.stringify({
+          departmentId: data.get("department").toString(),
+          name,
+          permissions,
+        }),
+      });
+      backendStaff = result.departments || backendStaff;
+      await refreshLogsFromBackend();
+      roleForm.reset();
+      renderStaffPanel();
+      return;
+    } catch (error) {
+      if (!backendUnavailable(error)) {
+        staffLoginStatus.textContent = error.message || "Role could not be created.";
+        return;
+      }
+    }
+  }
+
+  const staff = getStaffData();
+  const department = staff.departments.find((item) => item.id === data.get("department"));
 
   if (department && name) {
     department.roles.push({
@@ -678,15 +948,41 @@ roleForm.addEventListener("submit", (event) => {
   renderStaffPanel();
 });
 
-logCategoryFilter.addEventListener("change", renderLogs);
-logActorFilter.addEventListener("input", renderLogs);
-clearLogsButton.addEventListener("click", () => {
+logCategoryFilter.addEventListener("change", async () => {
+  if (backendSession?.permissions?.includes("view_logs")) await refreshLogsFromBackend();
+  renderLogs();
+});
+logActorFilter.addEventListener("input", async () => {
+  if (backendSession?.permissions?.includes("view_logs")) await refreshLogsFromBackend();
+  renderLogs();
+});
+clearLogsButton.addEventListener("click", async () => {
+  if (backendSession?.permissions?.includes("view_logs")) {
+    try {
+      const result = await apiJson("/api/staff/logs", { method: "DELETE", body: "{}" });
+      backendLogs = result.logs || [];
+      logsLoadedFromBackend = true;
+      renderLogs();
+      return;
+    } catch (error) {
+      if (!backendUnavailable(error)) {
+        staffLoginStatus.textContent = error.message || "Logs could not be cleared.";
+        return;
+      }
+    }
+  }
   writeJson("sfstudiosofficial_logs", []);
   renderLogs();
 });
 
-logoutButton.addEventListener("click", () => {
+logoutButton.addEventListener("click", async () => {
+  try {
+    await apiJson("/api/auth/logout", { method: "POST", body: "{}" });
+  } catch {
+    // Redirect out even when the backend is unreachable.
+  }
   window.localStorage.removeItem("sfstudiosofficial_access");
+  window.localStorage.removeItem("sfstudiosofficial_staff_session");
   addLog("auth", "Logged out");
   window.location.assign("/login.html");
 });
@@ -705,3 +1001,4 @@ renderCreators();
 renderStaffPanel();
 setActiveTab(window.location.hash.replace("#", "") || "home", false);
 updateScrollMeter();
+hydrateBackend();
